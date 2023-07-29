@@ -32,19 +32,21 @@ public class SeedController {
         Artist charlotteJane = new Artist("Charlotte Jane",
                 "https://open.spotify.com/artist/054xTptvdBhGqiTOHvgUaQ?si=nD5g3u8SQvqrRIIDJORCOA");
 
-        List<Artist> artists = new ArrayList<>();
-        artists.add(chael);
-        artists.add(charlotteJane);
-
         Song underMySkin = new Song("Under My Skin",
-                artists,
                 "https://i1.sndcdn.com/artworks-lxsptb1B4heT-0-t500x500.jpg",
                 "https://open.spotify.com/track/3heHkofB4rcPXF75FF482N?si=3426f23b06ef4b4d",
                 "will be implemented later");
 
+        underMySkin.addArtist(chael);
+        underMySkin.addArtist(charlotteJane);
+
+        songService.addSong(underMySkin);
+
+        chael.addSong(underMySkin);
+        charlotteJane.addSong(underMySkin);
+
         artistService.addArtist(chael);
         artistService.addArtist(charlotteJane);
-        songService.addSong(underMySkin);
 
         return ResponseEntity.ok().build();
     }

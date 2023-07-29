@@ -1,8 +1,13 @@
 package lumberjxck.portfolio.website.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +27,9 @@ public class Song {
     private String title;
 
     @ManyToMany(mappedBy = "songs")
-    private List<Artist> artists;
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+    property = "id")
+    private List<Artist> artists = new ArrayList<>();
 
     @Column(length = 2048)
     private String imageUrl;
@@ -32,12 +39,15 @@ public class Song {
 
     private String soundPreview;
 
-    public Song(String title, List<Artist> artists, String imageUrl, String spotifyLink, String soundPreview) {
+    public Song(String title, String imageUrl, String spotifyLink, String soundPreview) {
         this.title = title;
-        this.artists = artists;
         this.imageUrl = imageUrl;
         this.spotifyLink = spotifyLink;
         this.soundPreview = soundPreview;
+    }
+
+    public void addArtist(Artist artist) {
+        artists.add(artist);
     }
 
     public void removeArtist(Artist artist) {
