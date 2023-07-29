@@ -5,9 +5,11 @@ import lumberjxck.portfolio.website.backend.exception.SongNotFoundException;
 import lumberjxck.portfolio.website.backend.model.Artist;
 import lumberjxck.portfolio.website.backend.model.Song;
 import lumberjxck.portfolio.website.backend.repository.ArtistRepository;
+import lumberjxck.portfolio.website.backend.repository.SongRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Tristan Meinsma
@@ -18,6 +20,7 @@ import java.util.List;
 public class ArtistService {
 
     private final ArtistRepository artistRepository;
+    private final SongRepository songRepository;
 
     public List<Artist> findALlArtists () {
         return artistRepository.findAll();
@@ -37,6 +40,14 @@ public class ArtistService {
     }
 
     public void deleteArtist(Long id) {
+        Optional<Artist> artist = artistRepository.findById(id);
+
+        if (artist.isPresent()) {
+            for (Song song : artist.get().getSongs()) {
+                song.removeArtist(artist.get());
+                songRepository.save(song);
+            }
+        }
         artistRepository.deleteById(id);
     }
 }

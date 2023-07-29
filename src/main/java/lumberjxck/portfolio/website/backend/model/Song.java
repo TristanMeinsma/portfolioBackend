@@ -21,7 +21,7 @@ public class Song {
     private Long id;
     private String title;
 
-    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @ManyToMany(mappedBy = "songs")
     private List<Artist> artists;
 
     @Column(length = 2048)
@@ -38,5 +38,12 @@ public class Song {
         this.imageUrl = imageUrl;
         this.spotifyLink = spotifyLink;
         this.soundPreview = soundPreview;
+    }
+
+    public void removeArtist(Artist artist) {
+        if (!artists.contains(artist)) {
+            throw new IllegalArgumentException("Artist not present on this song");
+        }
+        artists.remove(artist);
     }
 }

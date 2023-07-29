@@ -5,8 +5,10 @@ import lumberjxck.portfolio.website.backend.model.Artist;
 import lumberjxck.portfolio.website.backend.model.Song;
 import lumberjxck.portfolio.website.backend.service.ArtistService;
 import lumberjxck.portfolio.website.backend.service.SongService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ public class SeedController {
     private final ArtistService artistService;
 
     @GetMapping("/seed")
-    public String seedDatabase() {
+    public ResponseEntity<Void> seedDatabase() {
         Artist chael = new Artist("Chaël",
                 "https://open.spotify.com/artist/4qUDi25koBiqMb7uhHEOHk?si=SodCi4zkTSamPdEK2oGAXQ");
 
@@ -44,6 +46,6 @@ public class SeedController {
         artistService.addArtist(charlotteJane);
         songService.addSong(underMySkin);
 
-        return "redirect:/";
+        return ResponseEntity.ok().build();
     }
 }
