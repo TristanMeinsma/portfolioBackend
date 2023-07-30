@@ -1,8 +1,6 @@
 package lumberjxck.portfolio.website.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,9 +30,8 @@ public class Artist {
     private String name;
     private String spotifyProfileUrl;
 
-    @ManyToMany()
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-    property = "id")
+    @ManyToMany
+    @JsonBackReference
     private List<Song> songs = new ArrayList<>();
 
     public Artist(String name, String spotifyProfileUrl) {

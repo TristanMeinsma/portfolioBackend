@@ -1,9 +1,6 @@
 package lumberjxck.portfolio.website.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerator;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,8 +24,7 @@ public class Song {
     private String title;
 
     @ManyToMany(mappedBy = "songs")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-    property = "id")
+    @JsonManagedReference
     private List<Artist> artists = new ArrayList<>();
 
     @Column(length = 2048)
