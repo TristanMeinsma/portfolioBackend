@@ -16,6 +16,9 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class,
+  property = "id")
 public class Song {
 
     @Id
@@ -24,7 +27,6 @@ public class Song {
     private String title;
 
     @ManyToMany(mappedBy = "songs")
-    @JsonManagedReference
     private List<Artist> artists = new ArrayList<>();
 
     @Column(length = 2048)

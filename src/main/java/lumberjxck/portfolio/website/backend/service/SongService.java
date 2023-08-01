@@ -7,7 +7,10 @@ import lumberjxck.portfolio.website.backend.model.Song;
 import lumberjxck.portfolio.website.backend.repository.ArtistRepository;
 import lumberjxck.portfolio.website.backend.repository.SongRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +29,19 @@ public class SongService {
     }
 
     public Song addSong (Song song) {
+        return songRepository.save(song);
+    }
+
+    @Transactional
+    public Song addArtistToSong(Long id, List<Long> artistIds) {
+        Song song = songRepository.findById(id).orElseThrow(() -> new RuntimeException("Song not found"));
+        List<Artist> artists = artistRepository.findAllById(artistIds);
+
+        for (Artist artist : artists) {
+            song.getArtists().add(artist);
+            artist.getSongs().add(song);
+        }
+
         return songRepository.save(song);
     }
 

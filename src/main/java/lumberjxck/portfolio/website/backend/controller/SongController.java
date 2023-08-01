@@ -1,12 +1,14 @@
 package lumberjxck.portfolio.website.backend.controller;
 
 import lombok.RequiredArgsConstructor;
+import lumberjxck.portfolio.website.backend.model.Artist;
 import lumberjxck.portfolio.website.backend.model.Song;
 import lumberjxck.portfolio.website.backend.service.SongService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,7 +36,14 @@ public class SongController {
 
     @PostMapping("/add")
     public ResponseEntity<Song> addSong(@RequestBody Song song) {
+        List<Long> artistIds = new ArrayList<>();
+
+        for (Artist artist : song.getArtists()) {
+            artistIds.add(artist.getId());
+        }
         Song newSong = songService.addSong(song);
+        songService.addArtistToSong(song.getId(), artistIds);
+
         return new ResponseEntity<>(newSong, HttpStatus.OK);
     }
 

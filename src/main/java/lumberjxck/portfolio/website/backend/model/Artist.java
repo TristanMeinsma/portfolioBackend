@@ -21,6 +21,9 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class,
+  property = "id")
 public class Artist {
 
     @Id
@@ -31,7 +34,6 @@ public class Artist {
     private String spotifyProfileUrl;
 
     @ManyToMany
-    @JsonBackReference
     private List<Song> songs = new ArrayList<>();
 
     public Artist(String name, String spotifyProfileUrl) {
