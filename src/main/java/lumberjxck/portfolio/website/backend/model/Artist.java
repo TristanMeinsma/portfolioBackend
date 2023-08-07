@@ -21,23 +21,25 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@JsonIdentityInfo(
-  generator = ObjectIdGenerators.PropertyGenerator.class,
-  property = "id")
 public class Artist {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long artistId;
 
     private String name;
     private String spotifyProfileUrl;
+    private String imageUrl;
+    private boolean showOnWebsite = false;
+    private int orderNumber = 0;
 
+    @JsonBackReference
     @ManyToMany
     private List<Song> songs = new ArrayList<>();
 
-    public Artist(String name, String spotifyProfileUrl) {
+    public Artist(String name, String spotifyProfileUrl, String imageUrl) {
         this.name = name;
+        this.imageUrl = imageUrl;
         this.spotifyProfileUrl = spotifyProfileUrl;
     }
 

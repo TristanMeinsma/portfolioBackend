@@ -39,6 +39,11 @@ public class ArtistService {
                 .orElseThrow(() -> new SongNotFoundException("Song by id " + id + " not found."));
     }
 
+    public Artist findByName (String name) {
+        return artistRepository.findArtistByName(name)
+                .orElseThrow(() -> new SongNotFoundException("Artist with name " + name + " not found."));
+    }
+
     public void deleteArtist(Long id) {
         Optional<Artist> artist = artistRepository.findById(id);
 

@@ -18,14 +18,15 @@ import java.util.List;
 @NoArgsConstructor
 @JsonIdentityInfo(
   generator = ObjectIdGenerators.PropertyGenerator.class,
-  property = "id")
+  property = "songId")
 public class Song {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long songId;
     private String title;
 
+    @JsonManagedReference
     @ManyToMany(mappedBy = "songs")
     private List<Artist> artists = new ArrayList<>();
 
@@ -37,11 +38,13 @@ public class Song {
 
     private String soundPreview;
 
-    public Song(String title, String imageUrl, String spotifyLink, String soundPreview) {
+    private boolean showOnWebsite = false;
+    private int orderNumber = 0;
+
+    public Song(String title, String imageUrl, String spotifyLink) {
         this.title = title;
         this.imageUrl = imageUrl;
         this.spotifyLink = spotifyLink;
-        this.soundPreview = soundPreview;
     }
 
     public void addArtist(Artist artist) {

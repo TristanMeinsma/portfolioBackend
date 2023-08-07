@@ -50,7 +50,7 @@ public class SongService {
     }
 
     public Song findSongById (Long id) {
-        return songRepository.findSongById(id)
+        return songRepository.findSongBySongId(id)
                 .orElseThrow(() -> new SongNotFoundException("Song by id " + id + " not found."));
     }
 
