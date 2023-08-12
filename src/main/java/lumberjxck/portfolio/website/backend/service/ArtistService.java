@@ -48,10 +48,9 @@ public class ArtistService {
         Optional<Artist> artist = artistRepository.findById(id);
 
         if (artist.isPresent()) {
-            for (Song song : artist.get().getSongs()) {
-                song.removeArtist(artist.get());
-                songRepository.save(song);
-            }
+            Song songToRemove = artist.get().getSong();
+            artist.get().removeSong();
+            songRepository.save(songToRemove);
         }
         artistRepository.deleteById(id);
     }

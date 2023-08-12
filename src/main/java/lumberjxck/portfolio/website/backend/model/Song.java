@@ -16,18 +16,15 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@JsonIdentityInfo(
-  generator = ObjectIdGenerators.PropertyGenerator.class,
-  property = "songId")
 public class Song {
 
     @Id
     @GeneratedValue
-    private Long songId;
+    private Long id;
     private String title;
 
     @JsonManagedReference
-    @ManyToMany(mappedBy = "songs")
+    @OneToMany
     private List<Artist> artists = new ArrayList<>();
 
     @Column(length = 2048)

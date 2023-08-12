@@ -39,10 +39,9 @@ public class SongController {
         List<Long> artistIds = new ArrayList<>();
 
         for (Artist artist : song.getArtists()) {
-            artistIds.add(artist.getArtistId());
+            artistIds.add(artist.getId());
         }
         Song newSong = songService.addSong(song);
-        songService.addArtistToSong(song.getSongId(), artistIds);
 
         return new ResponseEntity<>(newSong, HttpStatus.OK);
     }

@@ -32,25 +32,12 @@ public class SongService {
         return songRepository.save(song);
     }
 
-    @Transactional
-    public Song addArtistToSong(Long id, List<Long> artistIds) {
-        Song song = songRepository.findById(id).orElseThrow(() -> new RuntimeException("Song not found"));
-        List<Artist> artists = artistRepository.findAllById(artistIds);
-
-        for (Artist artist : artists) {
-            song.getArtists().add(artist);
-            artist.getSongs().add(song);
-        }
-
-        return songRepository.save(song);
-    }
-
     public Song updateSong (Song song) {
         return songRepository.save(song);
     }
 
     public Song findSongById (Long id) {
-        return songRepository.findSongBySongId(id)
+        return songRepository.findSongById(id)
                 .orElseThrow(() -> new SongNotFoundException("Song by id " + id + " not found."));
     }
 
@@ -59,7 +46,7 @@ public class SongService {
 
         if (song.isPresent()) {
             for (Artist artist : song.get().getArtists()) {
-                artist.removeSong(song.get());
+                artist.removeSong();
                 artistRepository.save(artist);
             }
         }

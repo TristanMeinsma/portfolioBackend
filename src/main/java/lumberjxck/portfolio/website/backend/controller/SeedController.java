@@ -33,6 +33,10 @@ public class SeedController {
                 "https://open.spotify.com/artist/4qUDi25koBiqMb7uhHEOHk?si=SodCi4zkTSamPdEK2oGAXQ",
                 "https://yt3.googleusercontent.com/MF13WqnH__CX3CCHWNCDFx_3wOBVW6J8a_M-o91tzxyHH2XGrcEpvzVZBTn_zMJBpWJ-ZxH1=s900-c-k-c0x00ffffff-no-rj");
 
+        createArtist("Chaël2",
+                "https://open.spotify.com/artist/4qUDi25koBiqMb7uhHEOHk?si=SodCi4zkTSamPdEK2oGAXQ",
+                "https://yt3.googleusercontent.com/MF13WqnH__CX3CCHWNCDFx_3wOBVW6J8a_M-o91tzxyHH2XGrcEpvzVZBTn_zMJBpWJ-ZxH1=s900-c-k-c0x00ffffff-no-rj");
+
         createArtist("Charlotte Jane",
                 "https://open.spotify.com/artist/054xTptvdBhGqiTOHvgUaQ?si=nD5g3u8SQvqrRIIDJORCOA",
                 "https://tresamagazine.files.wordpress.com/2021/01/charlotte-jane4-by-lennon-gregory.jpeg");
@@ -65,7 +69,7 @@ public class SeedController {
         Song danceToMyHeartBeat = createSong("Dance To My Heartbeat",
                 "https://i.scdn.co/image/ab67616d0000b2735c5b3c0ef6e7dbdf28b26864",
                 "https://open.spotify.com/track/0G76SXZghtnNuDyoggumuO?si=6415fdb54fde4bf3",
-                "Chaël", "Mougleta");
+                "Chaël2", "Mougleta");
     }
 
     private Song createSong(String title, String imageUrl, String spotifyUrl, String... artistNames) {

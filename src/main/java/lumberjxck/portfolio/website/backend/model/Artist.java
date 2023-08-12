@@ -5,12 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.*;
 
 /**
  * @author Tristan Meinsma
@@ -25,7 +20,7 @@ public class Artist {
 
     @Id
     @GeneratedValue
-    private Long artistId;
+    private Long id;
 
     private String name;
     private String spotifyProfileUrl;
@@ -34,8 +29,8 @@ public class Artist {
     private int orderNumber = 0;
 
     @JsonBackReference
-    @ManyToMany
-    private List<Song> songs = new ArrayList<>();
+    @ManyToOne
+    private Song song;
 
     public Artist(String name, String spotifyProfileUrl, String imageUrl) {
         this.name = name;
@@ -44,14 +39,11 @@ public class Artist {
     }
 
     public void addSong(Song song) {
-        songs.add(song);
+        this.song = song;
     }
 
-     public void removeSong(Song song) {
-        if (!songs.contains(song)) {
-            throw new IllegalArgumentException("Song not present in this artists repertoire");
-        }
-        songs.remove(song);
+     public void removeSong() {
+        this.song = null;
     }
 }
 
