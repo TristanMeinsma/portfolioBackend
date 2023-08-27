@@ -25,17 +25,19 @@ public class Artist {
     private String name;
     private String spotifyProfileUrl;
     private String imageUrl;
-    private boolean showOnWebsite = false;
+    private boolean showOnWebsite = true;
     private int orderNumber = 0;
 
     @JsonBackReference
     @ManyToOne
     private Song song;
 
-    public Artist(String name, String spotifyProfileUrl, String imageUrl) {
+    public Artist(String name, String spotifyProfileUrl, String imageUrl, int orderNumber, boolean showOnWebsite) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.spotifyProfileUrl = spotifyProfileUrl;
+        this.orderNumber = orderNumber;
+        this.showOnWebsite = showOnWebsite;
     }
 
     public void addSong(Song song) {

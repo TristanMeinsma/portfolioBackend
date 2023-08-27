@@ -33,15 +33,19 @@ public class Song {
     @Column(length = 2048)
     private String spotifyLink;
 
-    private String soundPreview;
+    @Lob
+    @Column(columnDefinition = "MEDIUMBLOB")
+    private byte[] soundPreview;
 
-    private boolean showOnWebsite = false;
+    private boolean showOnWebsite = true;
     private int orderNumber = 0;
 
-    public Song(String title, String imageUrl, String spotifyLink) {
+    public Song(String title, String imageUrl, String spotifyLink, int orderNumber, boolean showOnWebsite) {
         this.title = title;
         this.imageUrl = imageUrl;
         this.spotifyLink = spotifyLink;
+        this.orderNumber = orderNumber;
+        this.showOnWebsite = showOnWebsite;
     }
 
     public void addArtist(Artist artist) {
